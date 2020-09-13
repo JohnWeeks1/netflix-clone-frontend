@@ -1,15 +1,19 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import VuexPersistence from 'vuex-persist'
+import UserModule from "@/store/UserModule";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+
+const vuexLocal = new VuexPersistence({
+  key: 'netflix-clone',
+  storage: window.localStorage,
+});
+
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
-  }
-})
+    user: UserModule,
+  },
+  plugins: [vuexLocal.plugin]
+});
