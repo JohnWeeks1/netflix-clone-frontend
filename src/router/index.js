@@ -3,6 +3,11 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import AuthMiddleware from '@/middleware/AuthMiddleware'
 import IsLoggedInMiddleware from '@/middleware/IsLoggedInMiddleware'
+import Login from "@/views/auth/Login";
+import Register from "@/views/auth/Register";
+import Account from "@/views/Account";
+import VideoLibrary from "@/components/account/VideoLibrary";
+import Video from "@/components/account/Video";
 
 Vue.use(VueRouter)
 
@@ -17,25 +22,32 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'Login',
     beforeEnter: IsLoggedInMiddleware,
-    component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue')
+    component: Login
   },
   {
     path: '/register',
     name: 'Register',
     beforeEnter: IsLoggedInMiddleware,
-    component: () => import(/* webpackChunkName: "register" */ '../views/auth/Register.vue')
+    component: Register
   },
   {
     path: '/account',
     name: 'Account',
     beforeEnter: AuthMiddleware,
-    component: () => import(/* webpackChunkName: "account" */ '../views/Account.vue'),
-  },
-  {
-    path: '/video/:id',
-    name: 'Video',
-    beforeEnter: AuthMiddleware,
-    component: () => import(/* webpackChunkName: "video" */ '../views/Video.vue'),
+    component: Account,
+    children: [
+      {
+        path: 'video-library',
+        name: 'VideoLibrary',
+        component: VideoLibrary
+      },
+      {
+        path: 'video/:id',
+        name: 'Video',
+        beforeEnter: AuthMiddleware,
+        component: Video
+      },
+    ]
   },
 ]
 

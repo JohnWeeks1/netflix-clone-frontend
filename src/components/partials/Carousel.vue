@@ -20,7 +20,7 @@
 import VueHorizontalList from 'vue-horizontal-list';
 
 export default {
-  name: 'Carousel',
+  name: 'VideoLibrary',
   components: {
     VueHorizontalList
   },

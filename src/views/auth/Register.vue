@@ -105,7 +105,7 @@ export default {
     async fetchUser() {
       await this.$store.dispatch('user/fetchUser')
           .then(() => {
-            this.$router.push({name: 'Account'})
+            this.$router.push({name: 'VideoLibrary'})
           })
           .catch(error => {
             this.errors = error.response.data.errors;

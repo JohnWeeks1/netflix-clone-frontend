@@ -1,19 +1,17 @@
 <template>
   <div>
     <Nav/>
-    <Carousel/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Nav from "@/components/partials/Nav";
-import Carousel from "@/components/account/Carousel";
 
 export default {
   name: 'Account',
   components: {
-    Nav,
-    Carousel
+    Nav
   },
   data() {
     return {
