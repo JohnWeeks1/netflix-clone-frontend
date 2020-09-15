@@ -35,7 +35,7 @@
       <div v-if="isHidden" class="origin-top-right z-50 absolute right-0 mt-2 w-40 rounded-md shadow-lg">
         <div class="rounded-md bg-black bg-opacity-50 shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
           <div class="py-1">
-            <router-link :to="{ name: 'VideoLibrary' }" class="block px-4 py-2 text-sm leading-5 hover:bg-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Video Library</router-link>
+            <router-link :to="{ name: 'MovieLibrary' }" class="block px-4 py-2 text-sm leading-5 hover:bg-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Movie Library</router-link>
           </div>
           <div class="border-t border-gray-100"></div>
           <div class="py-1">

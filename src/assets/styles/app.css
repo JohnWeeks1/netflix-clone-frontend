@@ -12,10 +12,3 @@ body, html {
     background-size:cover;
 
 }
-#account-background-image {
-    background-image: url("../images/account/background-2.jpg");
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size:cover;
-    overflow: hidden;
-}

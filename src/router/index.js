@@ -6,8 +6,8 @@ import IsLoggedInMiddleware from '@/middleware/IsLoggedInMiddleware'
 import Login from "@/views/auth/Login";
 import Register from "@/views/auth/Register";
 import Account from "@/views/Account";
-import VideoLibrary from "@/components/account/VideoLibrary";
-import Video from "@/components/account/Video";
+import MovieLibrary from "@/components/account/MovieLibrary";
+import Movie from "@/components/account/Movie";
 
 Vue.use(VueRouter)
 
@@ -37,15 +37,15 @@ Vue.use(VueRouter)
     component: Account,
     children: [
       {
-        path: 'video-library',
-        name: 'VideoLibrary',
-        component: VideoLibrary
+        path: 'movie-library',
+        name: 'MovieLibrary',
+        component: MovieLibrary
       },
       {
-        path: 'video/:id',
-        name: 'Video',
+        path: 'movie/:movieName',
+        name: 'Movie',
         beforeEnter: AuthMiddleware,
-        component: Video
+        component: Movie
       },
     ]
   },

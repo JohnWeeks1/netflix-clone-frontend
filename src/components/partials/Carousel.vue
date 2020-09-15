@@ -1,11 +1,11 @@
 <template>
       <section class="p-10 relative">
-        <h3 class="static font-bold text-lg -mb-4">Horror</h3>
+        <h3 class="static font-bold text-lg -mb-4">Documentaries</h3>
         <vue-horizontal-list :items="items" :options="options">
           <template v-slot:default="{item}">
             <div class="item">
-              <router-link :to="{ name: 'Video', params: { id: '1' }}">
-                <img src="@/assets/images/account/movies/hulk.jpg" alt="">
+              <router-link :to="{ name: 'Movie', params: { movieName: 'beach' }}">
+                <img src="@/assets/images/account/movies/documentaries/beach.png" alt="">
                 <div class="w-full h-6 bg-black">
                   <h5 class="-mt-8 ml-2">{{item.title}}</h5>
                 </div>
@@ -20,10 +20,20 @@
 import VueHorizontalList from 'vue-horizontal-list';
 
 export default {
-  name: 'VideoLibrary',
+  name: 'MovieLibrary',
   components: {
     VueHorizontalList
   },
+  // props: {
+  //   category: {
+  //     type: String,
+  //     required: true
+  //   },
+  //   title: {
+  //     type: String,
+  //     required: true
+  //   }
+  // },
   data() {
     return {
       options: {
@@ -43,12 +53,6 @@ export default {
       },
       items: [
         {title: 'Item 0'},
-        {title: 'Item 0'},
-        {title: 'Item 0'},
-        {title: 'Item 0'},
-        {title: 'Item 0'},
-        {title: 'Item 0'},
-        {title: 'Item 0'}
       ]
     }
   }
