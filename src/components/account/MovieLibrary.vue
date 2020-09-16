@@ -26,7 +26,6 @@ export default {
   },
   methods: {
      getAllMovies() {
-       this.isPending = true;
        axios.get('api/movies')
           .then(response => {
             this.movies = response.data.data;
