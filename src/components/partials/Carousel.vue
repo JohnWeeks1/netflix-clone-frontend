@@ -1,15 +1,15 @@
 <template>
-  <section class="p-10 relative">
-    <h3 class="static font-bold text-lg -mb-4">
-      {{movies[0].category[0]}}
+  <section class="p-6">
+    <h3 class="static font-bold text-xl -mb-4">
+      {{movies[0].category.name}}
     </h3>
     <vue-horizontal-list :items="items" :options="options">
       <template v-slot:default="{item}">
         <div class="item">
           <router-link :to="{ name: 'Movie', params: { id: item.id }}">
-            <img :src="require(`@/assets/images/account/movies/documentaries/${item.title}.png`)" alt="">
-            <div class="w-full h-6 bg-black">
-              <h5 class="-mt-8 ml-2">{{item.title}}</h5>
+            <img class="z-10" :src="require(`@/assets/images/account/movies/documentaries/${item.title}.png`)" alt="">
+            <div class="w-full border-1 border-black p-2 bg-black opacity-75 relative -mt-10 z-50">
+              {{$helpers.capitalizeFirstLetter(item.title)}}
             </div>
           </router-link>
         </div>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+// https://github.com/fuxingloh/vue-horizontal-list
 import VueHorizontalList from 'vue-horizontal-list';
 
 export default {
@@ -57,7 +58,7 @@ export default {
       let allMovies = this.movies.map(function(e) {
         return {
           id: e.id,
-          title: e.title,
+          title: e.title
         }
       });
 

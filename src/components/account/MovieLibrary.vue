@@ -1,16 +1,17 @@
 <template>
       <div>
         <div v-if="!isPending">
-          <Carousel v-if="movies && movies[0].category[0] === 'documentaries'" :movies="movies" />
+          <Carousel v-if="movies && movies[0].category.name === 'Documentaries'" :movies="movies" />
         </div>
-        <div v-else >
-          Wait...
+        <div v-else>
+          <Spinner/>
         </div>
       </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import Spinner from "@/components/partials/Spinner";
 import Carousel from "@/components/partials/Carousel";
 
 export default {
@@ -32,12 +33,15 @@ export default {
           }).catch(error => {
             console.log(error);
           }).finally(() => {
-             this.isPending = false
+             setTimeout(() => {
+               this.isPending = false
+             }, 1000);
           });
-    },
+    }
   },
   components: {
-    Carousel
+    Carousel,
+    Spinner
   }
 };
 </script>

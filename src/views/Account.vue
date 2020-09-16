@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Nav from "@/components/partials/Nav";
+import Nav from "@/components/structure/Nav";
 
 export default {
   name: 'Account',

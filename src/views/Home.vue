@@ -26,8 +26,8 @@
 <script>
 import GridTextImage from "@/components/partials/GridTextImage";
 import JsonHome from "@/assets/json/home.json";
-import Footer from "@/components/partials/Footer";
-import Nav from "@/components/partials/Nav";
+import Footer from "@/components/structure/Footer";
+import Nav from "@/components/structure/Nav";
 export default {
   name: 'Home',
   data() {

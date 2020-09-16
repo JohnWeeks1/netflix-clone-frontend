@@ -16,6 +16,7 @@
     "vue-horizontal-list": "^1.0.12",
     "vue-plyr": "^6.0.4",
     "vue-router": "^3.2.0",
+    "vue-spinner": "^1.0.4",
     "vuex": "^3.4.0",
     "vuex-persist": "^2.2.0"
   },

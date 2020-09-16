@@ -49,7 +49,7 @@
 <script>
 
 import axios from 'axios';
-import Nav from "@/components/partials/Nav";
+import Nav from "@/components/structure/Nav";
 
 export default {
   name: 'Register',
