@@ -37,6 +37,9 @@
           <div class="py-1" @click="isHidden = !isHidden">
             <router-link :to="{ name: 'MovieLibrary' }" class="block px-4 py-2 text-sm leading-5 hover:bg-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Movie Library</router-link>
           </div>
+          <div class="py-1" @click="isHidden = !isHidden">
+            <router-link :to="{ name: 'EditDetails' }" class="block px-4 py-2 text-sm leading-5 hover:bg-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Edit Details</router-link>
+          </div>
           <div class="border-t border-gray-100"></div>
           <div class="py-1">
             <div @click="logout" class="block cursor-pointer px-4 py-2 text-sm leading-5 hover:bg-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Logout</div>

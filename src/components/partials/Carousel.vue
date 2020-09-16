@@ -55,15 +55,15 @@ export default {
   },
   methods: {
     mapMovies() {
-      let allMovies = this.movies.map(function(e) {
+      let allMovies = this.movies.map(function(movie) {
         return {
-          id: e.id,
-          title: e.title
+          id: movie.id,
+          title: movie.title
         }
       });
 
       for (let i = 0; i < allMovies.length; i++) {
-        this.items.push(allMovies[i])
+        this.items.push(allMovies[i]);
       }
     }
   },
