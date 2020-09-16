@@ -42,7 +42,7 @@ Vue.use(VueRouter)
         component: MovieLibrary
       },
       {
-        path: 'movie/:movieName',
+        path: 'movie/:id',
         name: 'Movie',
         beforeEnter: AuthMiddleware,
         component: Movie

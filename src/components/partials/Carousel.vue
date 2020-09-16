@@ -1,19 +1,21 @@
 <template>
-      <section class="p-10 relative">
-        <h3 class="static font-bold text-lg -mb-4">Documentaries</h3>
-        <vue-horizontal-list :items="items" :options="options">
-          <template v-slot:default="{item}">
-            <div class="item">
-              <router-link :to="{ name: 'Movie', params: { movieName: 'beach' }}">
-                <img src="@/assets/images/account/movies/documentaries/beach.png" alt="">
-                <div class="w-full h-6 bg-black">
-                  <h5 class="-mt-8 ml-2">{{item.title}}</h5>
-                </div>
-              </router-link>
+  <section class="p-10 relative">
+    <h3 class="static font-bold text-lg -mb-4">
+      {{movies[0].category[0]}}
+    </h3>
+    <vue-horizontal-list :items="items" :options="options">
+      <template v-slot:default="{item}">
+        <div class="item">
+          <router-link :to="{ name: 'Movie', params: { id: item.id }}">
+            <img :src="require(`@/assets/images/account/movies/documentaries/${item.title}.png`)" alt="">
+            <div class="w-full h-6 bg-black">
+              <h5 class="-mt-8 ml-2">{{item.title}}</h5>
             </div>
-          </template>
-        </vue-horizontal-list>
-      </section>
+          </router-link>
+        </div>
+      </template>
+    </vue-horizontal-list>
+  </section>
 </template>
 
 <script>
@@ -21,19 +23,12 @@ import VueHorizontalList from 'vue-horizontal-list';
 
 export default {
   name: 'MovieLibrary',
-  components: {
-    VueHorizontalList
+  props: {
+    movies: {
+      type: Array,
+      required: true
+    }
   },
-  // props: {
-  //   category: {
-  //     type: String,
-  //     required: true
-  //   },
-  //   title: {
-  //     type: String,
-  //     required: true
-  //   }
-  // },
   data() {
     return {
       options: {
@@ -51,10 +46,28 @@ export default {
           // padding: 24
         }
       },
-      items: [
-        {title: 'Item 0'},
-      ]
+      items: []
     }
-  }
+  },
+  mounted() {
+    this.mapMovies();
+  },
+  methods: {
+    mapMovies() {
+      let allMovies = this.movies.map(function(e) {
+        return {
+          id: e.id,
+          title: e.title,
+        }
+      });
+
+      for (let i = 0; i < allMovies.length; i++) {
+        this.items.push(allMovies[i])
+      }
+    }
+  },
+  components: {
+    VueHorizontalList
+  },
 };
 </script>

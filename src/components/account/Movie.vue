@@ -26,6 +26,11 @@ import Carousel from "@/components/partials/Carousel";
 
   export default {
     name: 'Movie',
+    computed: {
+      params() {
+        return this.$route.params.id;
+      }
+    },
     components: {
       Carousel
     }
