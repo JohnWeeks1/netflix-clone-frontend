@@ -8,6 +8,7 @@ import Register from "@/views/auth/Register";
 import Account from "@/views/Account";
 import MovieLibrary from "@/components/account/MovieLibrary";
 import Movie from "@/components/account/Movie";
+import EditDetails from "@/components/account/EditDetails";
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,12 @@ Vue.use(VueRouter)
         name: 'Movie',
         beforeEnter: AuthMiddleware,
         component: Movie
+      },
+      {
+        path: 'edit-details',
+        name: 'EditDetails',
+        beforeEnter: AuthMiddleware,
+        component: EditDetails
       },
     ]
   },
