@@ -15,11 +15,13 @@ export default {
   data() {
     return {
       errors: null,
-      firstName: null,
-      lastName: null,
-      email: null,
-      password: null,
-      password_confirmation: null
+      user: {
+        firstName: null,
+        lastName: null,
+        email: null,
+        password: null,
+        password_confirmation: null,
+      }
     }
   },
   methods: {
@@ -33,11 +35,11 @@ export default {
           });
 
       await axios.post('api/register', {
-        firstname: this.firstName,
-        lastname: this.lastName,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.password_confirmation
+        firstname: this.user.firstName,
+        lastname: this.user.lastName,
+        email: this.user.email,
+        password: this.user.password,
+        password_confirmation: this.user.password_confirmation
       })
           .then(response => {
             console.log(response);
@@ -50,8 +52,8 @@ export default {
 
     async login() {
       await axios.post('api/login', {
-        email: this.email,
-        password: this.password
+        email: this.user.email,
+        password: this.user.password
       })
           .then(() => {
             this.fetchUser();
