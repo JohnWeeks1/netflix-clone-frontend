@@ -9,8 +9,6 @@ import Account from "@/views/Account";
 import MovieLibrary from "@/components/account/MovieLibrary";
 import Movie from "@/components/account/Movie";
 import EditDetails from "@/components/account/EditDetails";
-import UserDetails from "@/components/partials/UserDetails";
-import Payment from "@/components/partials/Payment";
 
 Vue.use(VueRouter)
 
@@ -32,18 +30,6 @@ Vue.use(VueRouter)
     name: 'Register',
     beforeEnter: IsLoggedInMiddleware,
     component: Register,
-    children: [
-      {
-        path: 'user-details',
-        name: 'UserDetails',
-        component: UserDetails
-      },
-      {
-        path: 'payment',
-        name: 'Payment',
-        component: Payment
-      },
-    ]
   },
   {
     path: '/account',
