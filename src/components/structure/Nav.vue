@@ -57,7 +57,8 @@ export default {
   name: 'Nav',
   data() {
     return {
-      isHidden: false
+      isHidden: false,
+      errors: null
     }
   },
   methods: {

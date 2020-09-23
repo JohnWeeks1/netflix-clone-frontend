@@ -9,6 +9,9 @@ import Account from "@/views/Account";
 import MovieLibrary from "@/components/account/MovieLibrary";
 import Movie from "@/components/account/Movie";
 import EditDetails from "@/components/account/EditDetails";
+import Payment from "@/views/auth/Payment";
+import IsSubscribed from "@/middleware/IsSubscribed";
+import Welcome from "@/views/auth/Welcome";
 
 Vue.use(VueRouter)
 
@@ -32,6 +35,17 @@ Vue.use(VueRouter)
     component: Register,
   },
   {
+    path: '/payment',
+    name: 'Payment',
+    beforeEnter: IsSubscribed,
+    component: Payment,
+  },
+  {
+    path: '/welcome',
+    name: 'Welcome',
+    component: Welcome,
+  },
+  {
     path: '/account',
     name: 'Account',
     beforeEnter: AuthMiddleware,
@@ -40,6 +54,7 @@ Vue.use(VueRouter)
       {
         path: 'movie-library',
         name: 'MovieLibrary',
+        beforeEnter: AuthMiddleware,
         component: MovieLibrary
       },
       {

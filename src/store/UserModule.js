@@ -6,7 +6,8 @@ const getDefaultState = () => {
         firstName: null,
         lastName: null,
         email: null,
-        isLoggedIn: null,
+        isLoggedIn: false,
+        isSubscribed: false,
     }
 };
 
@@ -32,6 +33,9 @@ export default {
         updateIsLoggedIn(state, payload) {
             state.isLoggedIn = payload
         },
+        updateIsSubscribed(state, payload) {
+            state.isSubscribed = payload
+        },
     },
     actions: {
         async fetchUser({commit}) {
@@ -42,6 +46,7 @@ export default {
                     commit('updateLastName', response.data.data.lastname);
                     commit('updateEmail', response.data.data.email);
                     commit('updateIsLoggedIn', true);
+                    commit('updateIsSubscribed', response.data.data.isSubscribed === 1)
                 })
                 .catch(error => {
                     console.log(error);
@@ -53,6 +58,7 @@ export default {
                     commit('resetState');
                     localStorage.removeItem('netflix-clone');
                     commit('updateIsLoggedIn', false);
+                    commit('updateIsSubscribed', false);
                 })
                 .catch(error => {
                     console.log(error);
@@ -68,6 +74,8 @@ export default {
 
         getEmail: state => state.email,
 
-        getIsLoggedIn: state => state.isLoggedIn
+        getIsLoggedIn: state => state.isLoggedIn,
+
+        getIsSubscribed: state => state.isSubscribed
     }
 }

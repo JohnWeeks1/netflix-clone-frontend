@@ -36,6 +36,7 @@
 
 import axios from 'axios';
 import Nav from "@/components/structure/Nav";
+import store from "@/store";
 
 export default {
   name: 'Login',
@@ -71,10 +72,10 @@ export default {
     async fetchUser() {
       await this.$store.dispatch('user/fetchUser')
           .then(() => {
-            this.$router.push({name: 'MovieLibrary'})
-          })
-          .catch(error => {
-            this.errors = error.response.data.errors;
+            if(store.getters['user/getIsSubscribed'] === true) {
+              this.$router.push({name: 'MovieLibrary'})
+            }
+            this.$router.push({name: 'Payment'})
           })
     }
   },
