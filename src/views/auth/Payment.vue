@@ -1,110 +1,129 @@
 <template>
-  <div>
-    <Nav/>
-    <div class="pt-32 pb-48 min-h-screen">
-      <div class="w-full p-6 flex justify-center items-center">
-        <div class="w-full max-w-xs">
-          <div class="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4 bg-opacity-25">
-            <div class="text-3xl font-bold pb-5">Payment</div>
-            <p class="text-md pb-4">A monthly subscription of $4.99</p>
-            <!-- Stripe Elements Placeholder -->
-            <div id="card-element"></div>
-
-            <button v-if="setupIntent !== null" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mt-5 px-4 rounded focus:outline-none
-                focus:shadow-outline" id="card-button" :data-secret="setupIntent.client_secret">
-              Pay
-            </button>
-          </div>
+    <div>
+        <Nav/>
+        <div class="pt-32 pb-48 min-h-screen">
+            <div class="w-full p-6 flex justify-center items-center">
+                <div class="w-full max-w-xs">
+                    <div class="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4 bg-opacity-25">
+                        <div class="text-3xl font-bold pb-5">Payment</div>
+                        <p class="text-md pb-4">A monthly subscription of $4.99</p>
+                        <div class='credit-card-inputs' :class='{ complete }'>
+                            <label class="text-sm">Card Number</label>
+                            <card-number class='stripe-element card-number '
+                                         ref='cardNumber'
+                                         :stripe='stripe'
+                                         :options='options'
+                                         @change='number = $event.complete'
+                            />
+                            <label class="text-sm">Card Expiry</label>
+                            <card-expiry class='stripe-element card-expiry'
+                                         ref='cardExpiry'
+                                         :stripe='stripe'
+                                         :options='options'
+                                         @change='expiry = $event.complete'
+                            />
+                            <label class="text-sm">CVC</label>
+                            <card-cvc class='stripe-element card-cvc'
+                                      ref='cardCvc'
+                                      :stripe='stripe'
+                                      :options='options'
+                                      @change='cvc = $event.complete'
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
 
-import axios from 'axios';
 import Nav from "@/components/structure/Nav";
+import {CardNumber, CardExpiry, CardCvc} from 'vue-stripe-elements-plus'
 
 export default {
-  name: 'Payment',
-  data() {
-    return {
-      setupIntent: null,
-    }
-  },
-  created() {
-    this.loadPaymentInput();
-    this.stripeSetupIntent();
-  },
-  methods: {
-    loadPaymentInput() {
-      window.addEventListener('load', function() {
-        const stripe = window.Stripe('pk_test_IER0NKJoxFDc1QzU6et0NirO00Sq7qimpy');
-        const elements = stripe.elements();
-        const cardElement = elements.create('card', {
-          hidePostalCode: true,
-        });
-        cardElement.mount('#card-element');
-        // const cardHolderName = document.getElementById('card-holder-name');
-        const cardButton = document.getElementById('card-button');
-        const clientSecret = cardButton.dataset.secret;
-
-        cardButton.addEventListener('click', async () => {
-          const { setupIntent, error } = await stripe.confirmCardSetup(
-              clientSecret, {
-                payment_method: {
-                  card: cardElement,
-                  billing_details: { name: 'testing name' }
+    name: 'Payment',
+    data() {
+        return {
+            stripe: 'pk_test_IER0NKJoxFDc1QzU6et0NirO00Sq7qimpy',
+            complete: false,
+            number: false,
+            expiry: false,
+            cvc: false,
+            options: {
+                // see https://stripe.com/docs/stripe.js#element-options for details
+                style: {
+                    base: {
+                        iconColor: '#c4f0ff',
+                        color: '#363636',
+                        fontWeight: 600,
+                        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+                        fontSize: '18px',
+                        fontSmoothing: 'antialiased',
+                        ':-webkit-autofill': {
+                            color: '#fce883',
+                        },
+                        '::placeholder': {
+                            color: '#9c9c9c',
+                        },
+                    },
+                    invalid: {
+                        iconColor: '#cf4646',
+                        color: '#cf4646',
+                    },
+                    complete: {
+                        iconColor: '#36962a',
+                        color: '#36962a',
+                    },
                 }
-              }
-          );
-
-          if (error) {
-            // Display "error.message" to the user...
-            console.log(error);
-          } else {
-            // The card has been verified successfully...
-            await axios.post('api/payment/store',{ payment_method: setupIntent.payment_method })
-
-            await this.$store.dispatch('user/fetchUser')
-          }
-        });
-      })
+            }
+        }
     },
+    methods: {
+        update() {
+            this.complete = this.number && this.expiry && this.cvc
 
-    async stripeSetupIntent() {
-      await axios.get('api/payment/setup-intent')
-        .then(response => {
-          this.setupIntent = response.data.intent;
-        });
+            // field completed, find field to focus next
+            if (this.number) {
+                if (!this.expiry) {
+                    this.$refs.cardExpiry.focus()
+                } else if (!this.cvc) {
+                    this.$refs.cardCvc.focus()
+                }
+            } else if (this.expiry) {
+                if (!this.cvc) {
+                    this.$refs.cardCvc.focus()
+                } else if (!this.number) {
+                    this.$refs.cardNumber.focus()
+                }
+            }
+            // no focus magic for the CVC field as it gets complete with three
+            // numbers, but can also have four
+        }
+    },
+    watch: {
+        number() {
+            this.update()
+        },
+        expiry() {
+            this.update()
+        },
+        cvc() {
+            this.update()
+        }
+    },
+    components: {
+        Nav,
+        CardNumber,
+        CardExpiry,
+        CardCvc
     }
-  },
-  components: {
-    Nav
-  }
 }
 </script>
 
 <style>
-.StripeElement {
-  box-sizing: border-box;
-  height: 40px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 1px 3px 0 #e6ebf1;
-  -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease;
-}
-.StripeElement--focus {
-  box-shadow: 0 1px 3px 0 #cfd7df;
-}
-.StripeElement--invalid {
-  border-color: #fa755a;
-}
-.StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;
+.stripe-element {
+    @apply p-4 mb-2 border-solid border border-gray-900 bg-gray-400
 }
 </style>
