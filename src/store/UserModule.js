@@ -46,7 +46,9 @@ export default {
                     commit('updateLastName', response.data.data.lastname);
                     commit('updateEmail', response.data.data.email);
                     commit('updateIsLoggedIn', true);
-                    commit('updateIsSubscribed', response.data.data.isSubscribed === 1)
+                    if(response.data.data.isSubscribed === 1) {
+                        commit('updateIsSubscribed', true)
+                    }
                 })
                 .catch(error => {
                     console.log(error);

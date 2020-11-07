@@ -54,19 +54,16 @@ Vue.use(VueRouter)
       {
         path: 'movie-library',
         name: 'MovieLibrary',
-        beforeEnter: AuthMiddleware,
         component: MovieLibrary
       },
       {
         path: 'movie/:id',
         name: 'Movie',
-        beforeEnter: AuthMiddleware,
         component: Movie
       },
       {
         path: 'edit-details',
         name: 'EditDetails',
-        beforeEnter: AuthMiddleware,
         component: EditDetails
       },
     ]
