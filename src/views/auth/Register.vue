@@ -40,7 +40,7 @@
 
 import axios from 'axios';
 import Nav from "@/components/structure/Nav";
-import AuthMainTemplate from '@/components/partials/auth/AuthMainTemplate';
+import AuthMainTemplate from '@/components/structure/auth/AuthMainTemplate';
 
 export default {
     name: 'Register',
