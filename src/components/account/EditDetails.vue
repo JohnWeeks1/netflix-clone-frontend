@@ -1,63 +1,50 @@
 <template>
-      <div>
-        <div v-if="!isPending">
-          <div class="w-full max-w-lg mx-auto">
+    <div>
+        <div class="mt-20"></div>
+        <div v-if="!isLoaded">
+            <PageLoader/>
+        </div>
+        <div class="w-full max-w-lg mx-auto">
+            <h1 class="text-2xl pb-4">My Details</h1>
             <div class="flex flex-wrap -mx-3 mb-6">
-              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                  First Name
-                </label>
-                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3
-                 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text"
-                 :value="userFirstName">
-<!--                <p class="text-red-500 text-xs italic">Please fill out this field.</p>-->
-              </div>
-              <div class="w-full md:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                  Last Name
-                </label>
-                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3
-                 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text"
-                 :value="userLastName">
-              </div>
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="label">First Name</label>
+                    <input v-model="firstName" class="input" type="text">
+                    <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                    <label class="label">Last Name</label>
+                    <input v-model="lastName" class="input" type="text">
+                </div>
             </div>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Update
-            </button>
-          </div>
+            <button class="red-button hover:bg-red-700">Update Details</button>
         </div>
-        <div v-else>
-          <Spinner/>
-        </div>
-      </div>
+    </div>
 </template>
 
 <script>
-import Spinner from "@/components/partials/Spinner";
 
 export default {
-  name: 'MovieLibrary',
-  data() {
-    return {
-      isPending: false,
-      movies: [],
-    }
-  },
-  methods: {
-     updateUser() {
-       //
-    }
-  },
-  computed: {
-    userFirstName() {
-      return this.$store.getters['user/getFirstName'];
+    name: 'MovieLibrary',
+    data() {
+        return {
+            isLoaded: false,
+            firstName: null,
+            lastName: null
+        }
     },
-    userLastName() {
-      return this.$store.getters['user/getLastName'];
-    }
-  },
-  components: {
-    Spinner
-  }
+    mounted() {
+        this.userDetails()
+    },
+    methods: {
+        userDetails() {
+            this.firstName = this.$store.getters['user/getFirstName'];
+            this.lastName  = this.$store.getters['user/getLastName'];
+
+            if (this.firstName !== null && this.lastName !== null)  {
+                setTimeout(() => { this.isLoaded = true }, 1000)
+            }
+        }
+    },
 };
 </script>

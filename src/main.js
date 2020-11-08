@@ -5,6 +5,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import PageLoader from "@/components/partials/PageLoader";
+
+// Global Components
+Vue.component('PageLoader', PageLoader)
+// Global Components END
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:8000/'

@@ -1,47 +1,43 @@
 <template>
-      <div>
-        <div v-if="!isPending">
-          <Carousel v-if="movies && movies[0].category.name === 'Documentaries'" :movies="movies" />
+    <div>
+        <div class="mt-20"></div>
+        <div v-if="!isLoaded">
+            <PageLoader/>
         </div>
-        <div v-else>
-          <Spinner/>
-        </div>
-      </div>
+        <Carousel v-if="movies[0] && movies[0].category.name === 'Documentaries'" :movies="movies"/>
+    </div>
 </template>
 
 <script>
+
 import axios from "axios";
-import Spinner from "@/components/partials/Spinner";
 import Carousel from "@/components/partials/Carousel";
 
 export default {
-  name: 'MovieLibrary',
-  mounted() {
-    this.getAllMovies();
-  },
-  data() {
-    return {
-      isPending: true,
-      movies: [],
+    name: 'MovieLibrary',
+    mounted() {
+        this.getAllMovies();
+    },
+    data() {
+        return {
+            isLoaded: false,
+            movies: [],
+        }
+    },
+    methods: {
+        async getAllMovies() {
+            try {
+                let response = await axios.get('api/movies')
+                this.movies = response.data.data;
+
+                setTimeout(() => { this.isLoaded = true }, 1000);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    },
+    components: {
+        Carousel
     }
-  },
-  methods: {
-     getAllMovies() {
-       axios.get('api/movies')
-          .then(response => {
-            this.movies = response.data.data;
-          }).catch(error => {
-            console.log(error);
-          }).finally(() => {
-             setTimeout(() => {
-               this.isPending = false
-             }, 1000);
-          });
-    }
-  },
-  components: {
-    Carousel,
-    Spinner
-  }
 };
 </script>

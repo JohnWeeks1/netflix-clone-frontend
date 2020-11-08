@@ -6,9 +6,7 @@
           <h1 class="text-5xl font-bold">Unlimited films, TV programmes and more.</h1>
           <p class="text-xl pb-4">Watch anywhere. Cancel at any time.</p>
           <p class="text-xl pb-4">Ready to watch? Click the button to start a new subscription.</p>
-          <router-link :to="{ name: 'Register' }" class="bg-red-700 hover:bg-red-600 text-white text-xl py-1 px-4 rounded">
-            Get Started
-          </router-link>
+          <router-link :to="{ name: 'Register' }" class="red-button hover:bg-red-700">Get Started</router-link>
       </div>
     </div>
     <div class="h-2 pt-60 bg-gray-900"></div>

@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center justify-between flex-wrap p-6">
+  <nav class="z-50 w-full bg-black bg-opacity-75 fixed top-0 left-0 flex items-center justify-between flex-wrap p-6">
 
     <!--Logo-->
     <div class="flex items-center flex-shrink-0 mr-6">
@@ -12,8 +12,7 @@
     <!--LogoEnd-->
 
     <!--Login-->
-      <router-link v-show="!isLoggedIn" :to="{ name: 'Login'}" v-if="!isRouteNameLogin"
-        class="bg-red-700 hover:bg-red-600 text-white py-1 px-4 rounded">
+      <router-link v-show="!isLoggedIn" :to="{ name: 'Login'}" v-if="!isRouteNameLogin" class="red-button hover:bg-red-700">
         Login
       </router-link>
     <!--LoginEnd-->
@@ -32,8 +31,8 @@
           </button>
         </span>
       </div>
-      <div v-if="isHidden" class="origin-top-right z-40 absolute right-0 mt-2 w-40 rounded-md shadow-lg">
-        <div class="rounded-md bg-black bg-opacity-50 shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+      <div v-if="isHidden" class="origin-top-right absolute right-0 w-40 mt-4 shadow-lg">
+        <div class="rounded-md bg-black bg-opacity-75 shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
           <div class="py-1" @click="isHidden = !isHidden">
             <router-link :to="{ name: 'MovieLibrary' }" class="block px-4 py-2 text-sm leading-5 hover:bg-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Movie Library</router-link>
           </div>

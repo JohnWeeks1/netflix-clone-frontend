@@ -1,7 +1,7 @@
 import store from '@/store'
 
 export default function (to, from, next) {
-    if (store.getters['user/getIsSubscribed'] === 1) {
+    if (store.getters['user/getIsSubscribed']) {
         next({ name: 'MovieLibrary' });
     }
     next();
