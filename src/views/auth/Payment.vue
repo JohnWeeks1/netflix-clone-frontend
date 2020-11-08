@@ -30,10 +30,11 @@
                                       @change='cvc = $event.complete'
                             />
                             <div class="h-4"></div>
-                            <button class="w-full bg-red-700 hover:bg-red-600 text-gray-300 font-bold py-2 px-4
+                            <button @click="getStripeToken" v-if="complete" class="w-full bg-red-700 hover:bg-red-600 text-gray-300 font-bold py-2 px-4
                                 focus:outline-none focus:shadow-outline">
                                 Subscribe
                             </button>
+                            {{error}}
                         </div>
                     </div>
                 </div>
@@ -44,8 +45,9 @@
 
 <script>
 
+import axios from 'axios';
 import Nav from "@/components/structure/Nav";
-import {CardNumber, CardExpiry, CardCvc} from 'vue-stripe-elements-plus'
+import {CardNumber, CardExpiry, CardCvc, createToken} from 'vue-stripe-elements-plus'
 
 export default {
     name: 'Payment',
@@ -53,6 +55,7 @@ export default {
         return {
             stripe: 'pk_test_IER0NKJoxFDc1QzU6et0NirO00Sq7qimpy',
             complete: false,
+            error: null,
             number: false,
             expiry: false,
             cvc: false,
@@ -103,8 +106,22 @@ export default {
                     this.$refs.cardNumber.focus()
                 }
             }
-            // no focus magic for the CVC field as it gets complete with three
-            // numbers, but can also have four
+        },
+        async getStripeToken() {
+            try {
+                await createToken().then(data => {
+                    this.submitPayment(data.token)
+                })
+            } catch (error) {
+                this.error = error;
+            }},
+        async submitPayment(token) {
+            console.log(token)
+            try {
+                await axios.post('api/payment/store', { token: token })
+            } catch (error) {
+                this.error = error;
+            }
         }
     },
     watch: {
