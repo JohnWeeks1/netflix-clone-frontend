@@ -8,27 +8,32 @@
                         <div class="text-3xl font-bold pb-5">Payment</div>
                         <p class="text-md pb-4">A monthly subscription of $4.99</p>
                         <div class='credit-card-inputs' :class='{ complete }'>
-                            <label class="text-sm">Card Number</label>
+                            <label class="text-sm text-gray-600">Card Number</label>
                             <card-number class='stripe-element card-number '
                                          ref='cardNumber'
                                          :stripe='stripe'
                                          :options='options'
                                          @change='number = $event.complete'
                             />
-                            <label class="text-sm">Card Expiry</label>
+                            <label class="text-sm text-gray-600">Card Expiry</label>
                             <card-expiry class='stripe-element card-expiry'
                                          ref='cardExpiry'
                                          :stripe='stripe'
                                          :options='options'
                                          @change='expiry = $event.complete'
                             />
-                            <label class="text-sm">CVC</label>
+                            <label class="text-sm text-gray-600">CVC</label>
                             <card-cvc class='stripe-element card-cvc'
                                       ref='cardCvc'
                                       :stripe='stripe'
                                       :options='options'
                                       @change='cvc = $event.complete'
                             />
+                            <div class="h-4"></div>
+                            <button class="w-full bg-red-700 hover:bg-red-600 text-gray-300 font-bold py-2 px-4
+                                focus:outline-none focus:shadow-outline">
+                                Subscribe
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -124,6 +129,6 @@ export default {
 
 <style>
 .stripe-element {
-    @apply p-4 mb-2 border-solid border border-gray-900 bg-gray-400
+    @apply p-3 mb-2 border-solid border border-gray-900 bg-gray-400
 }
 </style>
