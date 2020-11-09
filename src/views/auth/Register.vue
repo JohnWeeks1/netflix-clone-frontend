@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Nav/>
         <AuthMainTemplate>
             <div class="mb-4 flex items-center justify-between">
                 <div class="text-3xl font-bold">Register</div>
@@ -39,7 +38,6 @@
 <script>
 
 import axios from 'axios';
-import Nav from "@/components/structure/Nav";
 import AuthMainTemplate from '@/components/structure/auth/AuthMainTemplate';
 
 export default {
@@ -95,7 +93,7 @@ export default {
         async fetchUser() {
             await this.$store.dispatch('user/fetchUser')
                 .then(() => {
-                    this.$router.push({name: 'Payment'})
+                    window.location.href = '/payment'
                 })
                 .catch(error => {
                     this.errors = error.response.data.errors;
@@ -103,9 +101,6 @@ export default {
                 })
         },
     },
-    components: {
-        Nav,
-        AuthMainTemplate
-    }
+    components: { AuthMainTemplate }
 }
 </script>

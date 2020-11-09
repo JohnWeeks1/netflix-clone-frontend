@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Nav/>
         <AuthMainTemplate>
             <div class="mb-4 flex items-center justify-between">
                 <div class="text-3xl font-bold">Login</div>
@@ -9,12 +8,12 @@
             <div class="mb-4">
                 <label class="label">Email</label>
                 <input v-model="email" class="input" id="email" type="text" placeholder="joe@mail.com">
-                <p class="input-error-text" v-if="errors">{{ errors.email[0] }}</p>
+                <p class="input-error-text" v-if="errors && errors.email">{{ errors.email[0] }}</p>
             </div>
             <div class="mb-6">
                 <label class="label">Password</label>
                 <input v-model="password" class="input" type="password"  placeholder="**************">
-                <p class="input-error-text" v-if="errors">{{ errors.password[0] }}</p>
+                <p class="input-error-text" v-if="errors && errors.password">{{ errors.password[0] }}</p>
             </div>
             <button @click="login" class="red-button w-full" type="button">Sign In</button>
         </AuthMainTemplate>
@@ -24,7 +23,6 @@
 <script>
 
 import axios from 'axios';
-import Nav from "@/components/structure/Nav";
 import AuthMainTemplate from '@/components/structure/auth/AuthMainTemplate'
 
 export default {
@@ -65,9 +63,6 @@ export default {
                 })
         }
     },
-    components: {
-        Nav,
-        AuthMainTemplate
-    }
+    components: { AuthMainTemplate }
 }
 </script>

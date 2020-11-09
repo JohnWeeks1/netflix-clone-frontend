@@ -11,69 +11,63 @@ import Movie from "@/components/account/Movie";
 import EditDetails from "@/components/account/EditDetails";
 import Payment from "@/views/auth/Payment";
 import IsSubscribed from "@/middleware/IsSubscribed";
-import Welcome from "@/views/auth/Welcome";
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '',
-    name: 'Home',
-    beforeEnter: IsLoggedInMiddleware,
-    component: Home,
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    beforeEnter: IsLoggedInMiddleware,
-    component: Login
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    beforeEnter: IsLoggedInMiddleware,
-    component: Register,
-  },
-  {
-    path: '/payment',
-    name: 'Payment',
-    beforeEnter: IsSubscribed,
-    component: Payment,
-  },
-  {
-    path: '/welcome',
-    name: 'Welcome',
-    component: Welcome,
-  },
-  {
-    path: '/account',
-    name: 'Account',
-    beforeEnter: AuthMiddleware,
-    component: Account,
-    children: [
-      {
-        path: 'movie-library',
-        name: 'MovieLibrary',
-        component: MovieLibrary
-      },
-      {
-        path: 'movie/:id',
-        name: 'Movie',
-        component: Movie
-      },
-      {
-        path: 'edit-details',
-        name: 'EditDetails',
-        component: EditDetails
-      },
-    ]
-  },
+const routes = [
+    {
+        path: '',
+        name: 'Home',
+        beforeEnter: IsLoggedInMiddleware,
+        component: Home,
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        beforeEnter: IsLoggedInMiddleware,
+        component: Login
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        beforeEnter: IsLoggedInMiddleware,
+        component: Register,
+    },
+    {
+        path: '/payment',
+        name: 'Payment',
+        beforeEnter: IsSubscribed,
+        component: Payment,
+    },
+    {
+        path: '/account',
+        name: 'Account',
+        beforeEnter: AuthMiddleware,
+        component: Account,
+        children: [
+            {
+                path: 'movie-library',
+                name: 'MovieLibrary',
+                component: MovieLibrary
+            },
+            {
+                path: 'movie/:id',
+                name: 'Movie',
+                component: Movie
+            },
+            {
+                path: 'edit-details',
+                name: 'EditDetails',
+                component: EditDetails
+            },
+        ]
+    },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router

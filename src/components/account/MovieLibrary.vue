@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div class="background-image"></div>
         <div class="mt-20"></div>
         <div v-if="!isLoaded">
             <PageLoader/>
@@ -41,3 +42,16 @@ export default {
     }
 };
 </script>
+
+<style>
+.background-image {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-image: url("../../assets/images/account/movies/startrek-bg.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+</style>

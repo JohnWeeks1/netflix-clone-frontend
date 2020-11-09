@@ -1,6 +1,8 @@
 <template>
     <div>
-        <Nav/>
+        <div v-if="!isLoaded">
+            <PageLoader/>
+        </div>
         <AuthMainTemplate>
             <div class="mb-4 flex items-center justify-between">
                 <div class="text-3xl font-bold">Payment</div>
@@ -22,9 +24,10 @@
                 <div id="card-cvc"></div>
             </div>
 
-            <div v-if="error !== null" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            <div v-if="error !== null" class="bg-red-500 border border-red-800 text-gray-300 px-4 py-3 mt-6"
                  role="alert">
                 <strong class="font-bold">Wait!</strong>
+                <br>
                 <span class="block sm:inline">{{ error.message }}</span>
             </div>
             <!-- Stripe Elements END -->
@@ -39,7 +42,6 @@
 <script>
 
 import axios from 'axios';
-import Nav from "@/components/structure/Nav";
 import AuthMainTemplate from '@/components/structure/auth/AuthMainTemplate';
 
 export default {
@@ -47,12 +49,14 @@ export default {
     data() {
         return {
             error: null,
+            isLoaded: false,
             setupIntent: null,
         }
     },
-    created() {
+    mounted() {
         this.loadPaymentInput();
         this.stripeSetupIntent();
+        this.isLoader = true
     },
     methods: {
         loadPaymentInput() {
@@ -69,6 +73,10 @@ export default {
                 cardExpiry.mount('#card-expiry');
                 cardCvc.mount('#card-cvc');
 
+                cardCvc.on('ready', function() {
+                    self.setTrue()
+                });
+
                 const cardButton = document.getElementById('card-button');
                 const clientSecret = cardButton.dataset.secret;
 
@@ -82,17 +90,21 @@ export default {
                     );
 
                     if (error) {
-                        this.error = error;
+                        self.error = error;
                     } else {
                         // The card has been verified successfully...
                         try {
                             await self.subscribe(setupIntent)
                         } catch (error) {
-                            this.error = error;
+                            self.error = error;
                         }
                     }
                 });
             })
+        },
+
+        setTrue() {
+            this.isLoaded = true;
         },
 
         async stripeSetupIntent() {
@@ -106,6 +118,7 @@ export default {
 
         async subscribe(setupIntent) {
             const self = this;
+            this.isLoaded = false;
             try {
                 await axios.post('api/payment/store', {
                     payment_method: setupIntent.payment_method
@@ -127,7 +140,6 @@ export default {
         }
     },
     components: {
-        Nav,
         AuthMainTemplate
     }
 }
