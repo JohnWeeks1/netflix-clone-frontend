@@ -3,11 +3,11 @@
 
         <!--Logo-->
         <div class="flex items-center flex-shrink-0 mr-6">
-      <span class="font-semibold text-xl tracking-tight">
-        <router-link :to="{ name: 'Home'}">
-          <img src="@/assets/images/johnflix-logo.png" class="w-40" alt="">
-        </router-link>
-      </span>
+              <span class="font-semibold text-xl tracking-tight">
+                <router-link :to="{ name: 'Home'}">
+                  <img src="@/assets/images/johnflix-logo.png" class="w-40" alt="">
+                </router-link>
+              </span>
         </div>
         <!--LogoEnd-->
 

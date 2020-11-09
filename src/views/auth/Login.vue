@@ -44,7 +44,7 @@ export default {
                     console.log(error);
                 });
 
-            await axios.post('api/login', {
+            await axios.post('login', {
                 email: this.email,
                 password: this.password
             })

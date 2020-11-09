@@ -62,7 +62,7 @@ export default {
                     console.log(error);
                 });
 
-            await axios.post('api/register', {
+            await axios.post('register', {
                 firstname: this.firstName,
                 lastname: this.lastName,
                 email: this.email,
@@ -78,7 +78,7 @@ export default {
         },
 
         async login() {
-            await axios.post('api/login', {
+            await axios.post('login', {
                 email: this.email,
                 password: this.password
             })

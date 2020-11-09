@@ -1,11 +1,11 @@
 <template>
     <section class="p-6">
-        <h3 class="static font-bold text-xl -mb-4">
+        <h3 class="relative font-bold text-xl -mb-4">
             {{ movies[0].category.name }}
         </h3>
         <vue-horizontal-list :items="items" :options="options">
             <template v-slot:default="{item}">
-                <div class="item">
+                <div class="item -m-1">
                     <router-link :to="{ name: 'Movie', params: { id: item.id }}">
                         <img class="z-10"
                              :src="require(`@/assets/images/account/movies/documentaries/${item.title}.png`)" alt="">
@@ -38,7 +38,8 @@ export default {
                     {end: 576, size: 1},
                     {start: 576, end: 768, size: 2},
                     {start: 768, end: 992, size: 3},
-                    {size: 4}
+                    {start: 992, end: 1200, size: 4},
+                    {start: 1200, size: 5}
                 ],
                 list: {
                     // 1200 because @media (min-width: 1200px) and therefore I want to switch to windowed mode
@@ -73,3 +74,9 @@ export default {
     },
 };
 </script>
+
+<style>
+.vhl-btn-right {
+    @apply bg-red-500
+}
+</style>

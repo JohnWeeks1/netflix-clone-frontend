@@ -1,7 +1,7 @@
 <template>
     <div>
         <Nav/>
-        <div id="home-background-image" class="pb-32 flex justify-center">
+        <div class="home-background-image pb-32 flex justify-center">
             <div class="max-w-xl text-center mt-40">
                 <h1 class="text-5xl font-bold">Unlimited films, TV programmes and more.</h1>
                 <p class="text-xl pb-4">Watch anywhere. Cancel at any time.</p>

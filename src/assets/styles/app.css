@@ -5,13 +5,22 @@
 body, html {
     @apply bg-black text-gray-300;
 }
-#home-background-image {
+.home-background-image {
     background-image: url("../images/home/home-bg-image.jpg");
     background-position: top;
     background-repeat: no-repeat;
     background-size:cover;
 
 }
+.account-background-image {
+    @apply fixed w-full h-full;
+    top: 0;
+    background-image: linear-gradient(transparent, black 50%),  url("../../assets/images/account/movies/startrek-bg.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
 .label {
     @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
 }

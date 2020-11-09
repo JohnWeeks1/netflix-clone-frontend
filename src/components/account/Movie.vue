@@ -14,12 +14,10 @@
                         </video>
                     </div>
                     <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 px-2">
-                        <div class="">
-                            <h3 v-if="movie" class="font-semibold text-3xl tracking-tight">
-                                {{ this.$helpers.capitalizeFirstLetter(movie.title) }}
-                            </h3>
-                            <p v-if="movie">{{ movie.description }}</p>
-                        </div>
+                        <h3 v-if="movie" class="font-semibold text-4xl tracking-tight">
+                            {{ this.$helpers.capitalizeFirstLetter(movie.title) }}
+                        </h3>
+                        <p v-if="movie">{{ movie.description }}</p>
                     </div>
                 </div>
             </div>
