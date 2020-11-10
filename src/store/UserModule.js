@@ -55,7 +55,7 @@ export default {
                 })
         },
         async logout({commit}){
-            await axios.post('logout')
+            await axios.post('api/logout')
                 .then(() => {
                     commit('resetState');
                     localStorage.removeItem('netflix-clone');

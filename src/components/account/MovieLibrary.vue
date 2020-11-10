@@ -16,7 +16,7 @@ import Carousel from "@/components/partials/Carousel";
 
 export default {
     name: 'MovieLibrary',
-    mounted() {
+    created() {
         this.getAllMovies();
     },
     data() {
@@ -42,3 +42,4 @@ export default {
     }
 };
 </script>
+

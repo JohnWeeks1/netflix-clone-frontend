@@ -13,7 +13,7 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 px-2">
+                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/2 px-2">
                         <h3 v-if="movie" class="font-semibold text-4xl tracking-tight">
                             {{ this.$helpers.capitalizeFirstLetter(movie.title) }}
                         </h3>
