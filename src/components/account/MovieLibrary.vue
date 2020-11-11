@@ -6,6 +6,7 @@
             <PageLoader/>
         </div>
         <Carousel v-if="movies[0] && movies[0].category.name === 'Documentaries'" :movies="movies"/>
+        <Carousel v-if="movies[0] && movies[0].category.name === 'Documentaries'" :movies="movies"/>
     </div>
 </template>
 
