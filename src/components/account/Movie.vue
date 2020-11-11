@@ -17,7 +17,17 @@
                         <h3 v-if="movie" class="font-semibold text-4xl tracking-tight">
                             {{ this.$helpers.capitalizeFirstLetter(movie.title) }}
                         </h3>
-                        <p v-if="movie">{{ movie.description }}</p>
+                        <small class="text-gray-700">Rate this movie</small>
+                        <StarRating
+                            :rating="rating"
+                            v-bind:increment="1"
+                            v-bind:max-rating="5"
+                            inactive-color="gray"
+                            active-color="#BD0000"
+                            v-bind:star-size="35"
+                            @rating-selected="addRating"
+                        />
+                        <p class="pt-5" v-if="movie">{{ movie.description }}</p>
                     </div>
                 </div>
             </div>
@@ -26,6 +36,7 @@
 </template>
 <script>
 import axios from "axios";
+import StarRating from 'vue-star-rating'
 // import Carousel from "@/components/partials/Carousel";
 
 export default {
@@ -33,6 +44,7 @@ export default {
     data() {
         return {
             isLoaded: false,
+            rating: 0,
             movie: null
         }
     },
@@ -55,10 +67,26 @@ export default {
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+
+        async addRating(value) {
+            try {
+                let response = await axios.post('api/user/movie/ratings', {
+                    rating  : value,
+                    movie_id: this.movie.id
+                })
+                this.rating = response.data.data;
+
+                setTimeout(() => { this.isLoaded = true }, 1000);
+
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
     components: {
         // Carousel
+        StarRating
     }
 }
 </script>
