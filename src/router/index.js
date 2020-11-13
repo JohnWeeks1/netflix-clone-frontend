@@ -11,6 +11,7 @@ import Movie from "@/components/account/Movie";
 import EditDetails from "@/components/account/EditDetails";
 import Payment from "@/views/auth/Payment";
 import IsSubscribed from "@/middleware/IsSubscribed";
+import NotFound from "@/components/structure/NotFound";
 
 Vue.use(VueRouter)
 
@@ -61,6 +62,11 @@ const routes = [
                 component: EditDetails
             },
         ]
+    },
+    {
+        path: '/*',
+        name: 'NotFound',
+        component: NotFound
     },
 ]
 
